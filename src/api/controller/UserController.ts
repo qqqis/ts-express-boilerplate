@@ -3,6 +3,7 @@ import { Route } from '../../decorators/route.decorator'
 import { UserService } from '../service/UserService'
 import { Request, Response, NextFunction } from 'express'
 import RequestBuilder, { ControllerRequest } from '../request/RequestBuilder'
+import { reportErrorMessage } from '../../common/CustomError'
 
 @Injectable()
 export class UserController {
@@ -19,9 +20,8 @@ export class UserController {
     
             const result = await this.userService.getUser(request);
             res.json(result)
-        } catch (error) {
-            res.json(error)
+        } catch (error: unknown) {
+            reportErrorMessage(error, res)
         }
-
     }
 }
