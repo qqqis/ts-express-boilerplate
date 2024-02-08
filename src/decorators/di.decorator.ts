@@ -12,8 +12,11 @@ class Container {
         if (!targetType) {
             throw new Error(`Service not found: ${key}`);
         }
-        const dependencies = Reflect.getMetadata('design:paramtypes', targetType) || [];
-        const instances = dependencies.map((dependency: Constructor<any>) => this.resolve(dependency.name));
+        const dependencies =
+            Reflect.getMetadata('design:paramtypes', targetType) || [];
+        const instances = dependencies.map((dependency: Constructor<any>) =>
+            this.resolve(dependency.name),
+        );
         return new targetType(...instances);
     }
 }

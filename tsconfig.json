@@ -8,8 +8,8 @@
         // "rootDir": ".",
         // "baseUrl": "." /* Base directory to resolve non-absolute module names. */,
         // "paths": {
-            // "*": ["src/*"]
-        // }, 
+        // "*": ["src/*"]
+        // },
         "strict": true,
         "moduleResolution": "node",
         "esModuleInterop": true,

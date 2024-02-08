@@ -1,29 +1,28 @@
 export class ControllerRequest {
-    private readonly name: string
-  
+    private readonly name: string;
+
     constructor(requestBuilder: RequestBuilder) {
-      this.name = requestBuilder.name
+        this.name = requestBuilder.name;
     }
-  
+
     getName(): string {
-      return this.name
+        return this.name;
     }
 }
-  
-  export default class RequestBuilder {
-    private _name!: string
-  
+
+export default class RequestBuilder {
+    private _name!: string;
+
     build() {
-      return new ControllerRequest(this)
+        return new ControllerRequest(this);
     }
-  
+
     setName(value: string) {
-      this._name = value
-      return this
+        this._name = value;
+        return this;
     }
-  
+
     get name(): string {
-      return this._name
+        return this._name;
     }
 }
-  

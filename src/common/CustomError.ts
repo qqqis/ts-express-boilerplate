@@ -1,38 +1,37 @@
-import { Response } from 'express'
+import { Response } from 'express';
 
 type ErrorWithMessage = {
-    message: string
-    statusCode?: number
-}
-
+    message: string;
+    statusCode?: number;
+};
 
 const isErrorWithMessage = (error: unknown): error is ErrorWithMessage => {
     return (
-        typeof error === "object" &&
+        typeof error === 'object' &&
         error !== null &&
-        "message" in error &&
-        typeof (error as Record<string, unknown>).message === "string"
-    )
-}
+        'message' in error &&
+        typeof (error as Record<string, unknown>).message === 'string'
+    );
+};
 
 const toErrorMessage = (maybeError: unknown): ErrorWithMessage => {
-    if (isErrorWithMessage(maybeError)) return maybeError
+    if (isErrorWithMessage(maybeError)) return maybeError;
 
     try {
-        return new Error(JSON.stringify(maybeError))
+        return new Error(JSON.stringify(maybeError));
     } catch {
-        return new Error(String(maybeError))
+        return new Error(String(maybeError));
     }
-}
+};
 
 export const getErrorMessage = (error: unknown) => {
-    return toErrorMessage(error)
-}
+    return toErrorMessage(error);
+};
 
 export const reportErrorMessage = async (error: unknown, res: Response) => {
-    const err = await getErrorMessage(error)
+    const err = await getErrorMessage(error);
 
     return res
         .status(err.statusCode || 500)
-        .json({ Error: err.message, StatusCode: err.statusCode })
-}
+        .json({ Error: err.message, StatusCode: err.statusCode });
+};

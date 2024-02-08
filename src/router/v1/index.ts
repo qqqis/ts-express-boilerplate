@@ -1,6 +1,6 @@
-import express from 'express'
-import { container } from '../../decorators/di.decorator'
-import { UserController } from '../../api/controller/UserController'
+import express from 'express';
+import { container } from '../../decorators/di.decorator';
+import { UserController } from '../../api/controller/UserController';
 
 export function registerRoutes(app: express.Application, controller: any) {
     const prototype = Object.getPrototypeOf(controller);
@@ -9,10 +9,15 @@ export function registerRoutes(app: express.Application, controller: any) {
         if (propertyName !== 'constructor') {
             const route = Reflect.getMetadata('route', prototype, propertyName);
             if (route) {
-                (app as any)[route.method](route.path, prototype[propertyName].bind(controller));
+                (app as any)[route.method](
+                    route.path,
+                    prototype[propertyName].bind(controller),
+                );
             }
         }
     }
 }
 
-export const userController = container.resolve<UserController>(UserController.name);
+export const userController = container.resolve<UserController>(
+    UserController.name,
+);

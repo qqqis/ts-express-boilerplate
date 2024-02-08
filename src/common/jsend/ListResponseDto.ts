@@ -1,32 +1,32 @@
-import { IsInt, IsString, IsArray } from "class-validator"
+import { IsInt, IsString, IsArray } from 'class-validator';
 
 export class ListResponseDto<T> {
-  // pageSize: number;
-  @IsInt()
-  totalCount: number
+    // pageSize: number;
+    @IsInt()
+    totalCount: number;
 
-  @IsInt()
-  totalPage: number
+    @IsInt()
+    totalPage: number;
 
-  @IsString()
-  msg: string
+    @IsString()
+    msg: string;
 
-  @IsArray()
-  items: T[]
+    @IsArray()
+    items: T[];
 
-  error: boolean
+    error: boolean;
 
-  constructor(
-    totalCount: number,
-    pageSize: number,
-    items: T[],
-    msg: string,
-    error: boolean = false
-  ) {
-    this.error = error
-    this.totalCount = totalCount
-    this.totalPage = Math.ceil(totalCount / pageSize) || 1
-    this.msg = msg
-    this.items = items
-  }
+    constructor(
+        totalCount: number,
+        pageSize: number,
+        items: T[],
+        msg: string,
+        error: boolean = false,
+    ) {
+        this.error = error;
+        this.totalCount = totalCount;
+        this.totalPage = Math.ceil(totalCount / pageSize) || 1;
+        this.msg = msg;
+        this.items = items;
+    }
 }

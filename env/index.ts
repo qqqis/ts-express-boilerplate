@@ -1,8 +1,8 @@
-import * as dotenv from 'dotenv'
-import { resolve } from 'path'
+import * as dotenv from 'dotenv';
+import { resolve } from 'path';
 
-import { getOsEnv, getOsEnvArray } from '../utils/env'
-import { parse } from '../utils/db'
+import { getOsEnv, getOsEnvArray } from '../utils/env';
+import { parse } from '../utils/db';
 
 class Index {
     nodeEnv: string = '';
@@ -18,33 +18,33 @@ class Index {
     mongoURI: string = '';
 
     load() {
-        this.nodeEnv = process.env.NODE_ENV || 'production',
-        this.isProduction = process.env.NODE_ENV === 'production',
-        this.isDevelopment = process.env.NODE_ENV === 'development',
-        this.isTest = process.env.NODE_ENV === 'test',
+        this.nodeEnv = process.env.NODE_ENV || 'production';
+        this.isProduction = process.env.NODE_ENV === 'production';
+        this.isDevelopment = process.env.NODE_ENV === 'development';
+        this.isTest = process.env.NODE_ENV === 'test';
 
-        this.port = getOsEnv('PORT', process.env['PORT']),
-        this.host = getOsEnv('HOST', process.env['HOST']),
-        this.allowedOrigin = getOsEnvArray('ALLOWED_ORIGINS'),
+        this.port = getOsEnv('PORT', process.env['PORT']);
+        this.host = getOsEnv('HOST', process.env['HOST']);
+        this.allowedOrigin = getOsEnvArray('ALLOWED_ORIGINS');
 
-        this.dbURI = parse(getOsEnv('DB_URI'))
-        this.mongoURI = getOsEnv('MONGO_URI')
+        this.dbURI = parse(getOsEnv('DB_URI'));
+        this.mongoURI = getOsEnv('MONGO_URI');
     }
 }
 
 export let index = new Index();
 
 (() => {
-    if (process.env.NODE_ENV === "test") {
-      return
+    if (process.env.NODE_ENV === 'test') {
+        return;
     }
-    const envPath = resolve(`${__dirname}/../env`)
-    const path = resolve(`${envPath}/.env`)
-  
-    const envFound = dotenv.config({ path })
-  
+    const envPath = resolve(`${__dirname}/../env`);
+    const path = resolve(`${envPath}/.env`);
+
+    const envFound = dotenv.config({ path });
+
     if (envFound.error) {
-      console.error("couldn't find .env file")
+        console.error("couldn't find .env file");
     }
     index.load();
-  })()
+})();
