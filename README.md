@@ -3,6 +3,7 @@
 ### 실행
 
 ```bash
+$ cp ./env/.env.sample ./env/.env
 $ docker-compose up -d
 $ npm install
 $ npm run dev
